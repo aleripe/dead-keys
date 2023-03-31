@@ -21,8 +21,8 @@ class DeadKeysTextEditingController extends TextEditingController
 
     if (diff.inserted.length == 1) {
       TextWithPosition? textWithPosition = manageDeadKey(
-        TextWithPosition(oldText, position),
-        diff.inserted,
+        oldText, position,
+        diff.inserted
       );
       if (textWithPosition != null) {
         newValue = super.value.copyWith(

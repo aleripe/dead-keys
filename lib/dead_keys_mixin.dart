@@ -8,7 +8,8 @@ mixin DeadKeysMixin {
   String? _deadKey;
 
   TextWithPosition? manageDeadKey(
-    TextWithPosition oldTextWithPosition,
+    String oldText,
+    int position,
     String inserted,
   ) {
     if (inserted.length != 1) {
@@ -17,10 +18,7 @@ mixin DeadKeysMixin {
 
     if (_deadKey == null && keyMap.containsKey(inserted)) {
       _deadKey = inserted;
-      return TextWithPosition(
-        oldTextWithPosition.text,
-        oldTextWithPosition.position - 1,
-      );
+      return TextWithPosition(oldText, '', position - 1);
     }
 
     if (_deadKey != null && keyMap.containsKey(_deadKey)) {
@@ -29,22 +27,24 @@ mixin DeadKeysMixin {
       if (map.containsKey(inserted)) {
         _deadKey = null;
         return TextWithPosition(
-          oldTextWithPosition.text.insert(
+          oldText.insert(
             map[inserted]!,
-            oldTextWithPosition.position - 1,
+            position - 1,
           ),
-          oldTextWithPosition.position,
+          map[inserted]!,
+          position,
         );
       }
     }
 
     if (_deadKey != null) {
       final newTextWithPosition = TextWithPosition(
-        oldTextWithPosition.text.insert(
+        oldText.insert(
           _deadKey! + inserted,
-          oldTextWithPosition.position,
+          position,
         ),
-        oldTextWithPosition.position + _deadKey!.length,
+        _deadKey! + inserted,
+        position + _deadKey!.length,
       );
 
       _deadKey = null;

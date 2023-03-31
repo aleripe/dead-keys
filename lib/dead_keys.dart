@@ -36,3 +36,4 @@ export 'maps/swiss.dart';
 export 'maps/turkish.dart';
 export 'maps/united_kingdom_extended.dart';
 export 'maps/united_states_international.dart';
+export 'text_with_position.dart';
