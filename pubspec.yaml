@@ -1,0 +1,21 @@
+name: dead_keys
+description: Dead keys management in Flutter
+version: 0.1.0
+website: https://github.com/aleripe/dead-keys
+repository: https://github.com/aleripe/dead-keys
+
+environment:
+  sdk: '>=2.19.5 <3.0.0'
+  flutter: ">=2.5.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  plugin_platform_interface: ^2.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
