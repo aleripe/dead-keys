@@ -1,6 +1,5 @@
 import 'package:dead_keys/dead_keys_mixin.dart';
 import 'package:dead_keys/key_map.dart';
-import 'package:dead_keys/text_with_position.dart';
 import 'package:flutter/widgets.dart';
 
 import 'diff.dart';
@@ -20,19 +19,15 @@ class DeadKeysTextEditingController extends TextEditingController
     final diff = getDiff(oldText, newText, position);
 
     if (diff.inserted.length == 1) {
-      TextWithPosition? textWithPosition = manageDeadKey(
-        oldText, position,
-        diff.inserted
+      String handledKey = handleKey(diff.inserted);
+      super.value = value.copyWith(
+        text: oldText + handledKey,
+        selection: value.selection.copyWith(
+          baseOffset: value.selection.baseOffset + handledKey.length,
+          extentOffset: value.selection.baseOffset + handledKey.length,
+        ),
       );
-      if (textWithPosition != null) {
-        newValue = super.value.copyWith(
-              text: textWithPosition.text,
-              selection: value.selection.copyWith(
-                baseOffset: textWithPosition.position,
-                extentOffset: textWithPosition.position,
-              ),
-            );
-      }
+      return;
     }
 
     super.value = newValue;

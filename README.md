@@ -2,8 +2,6 @@
 
 Dead keys management in Flutter
 
-[![MIT License][license-badge]][license-link]
-
 ## Usage
 
 See the `example` directory for a minimal example of how to use this package.

@@ -16,7 +16,7 @@ void main() {
     expect(controller.text, 'Dummy');
   });
 
-  test('Inserting single characters should ignore dead keys', () {
+  test('Inserting single dead key should preserve text', () {
     final keyMap = {
       'm': {'m': 'n'}
     };
@@ -33,7 +33,8 @@ void main() {
     expect(controller.text, 'Du');
   });
 
-  test('Inserting single characters should replace dead keys', () {
+  test('Inserting single replacement after dead key should append replacement',
+      () {
     final keyMap = {
       'm': {'m': 'n'}
     };
@@ -52,5 +53,28 @@ void main() {
     );
 
     expect(controller.text, 'Dun');
+  });
+
+  test(
+      'Inserting single character after dead key should append dead key and character',
+      () {
+    final keyMap = {
+      'm': {'o': 'n'}
+    };
+    final controller = DeadKeysTextEditingController(keyMap: keyMap);
+    controller.value = const TextEditingValue(
+      text: 'Du',
+      selection: TextSelection.collapsed(offset: 2),
+    );
+    controller.value = const TextEditingValue(
+      text: 'Dum',
+      selection: TextSelection.collapsed(offset: 3),
+    );
+    controller.value = const TextEditingValue(
+      text: 'Dum',
+      selection: TextSelection.collapsed(offset: 3),
+    );
+
+    expect(controller.text, 'Dumm');
   });
 }
